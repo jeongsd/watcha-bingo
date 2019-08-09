@@ -30,12 +30,19 @@ export function bingoReducer(
     case GAME_START:
       return update<BingoState>(state, {
         isPlaying: { $set: true },
+        currentPlayerId: { $set: 'player1' },
         player1: {
+          openIndexes: {
+            $set: []
+          },
           cellNumbers: {
             $set: genRandomCellNumbers()
           }
         },
         player2: {
+          openIndexes: {
+            $set: []
+          },
           cellNumbers: {
             $set: genRandomCellNumbers()
           }

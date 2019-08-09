@@ -1,7 +1,6 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import times from 'lodash/times';
+import { useSelector } from 'react-redux';
 import { AppState } from '../store';
 import { playerStatus } from '../store/bingo/types';
 import BingoCell from './BingoCell';
