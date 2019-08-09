@@ -10,7 +10,7 @@ import {
   Cells,
   PlayerId
 } from './types';
-import getMatchLines from './getMatchLines';
+import getMatchLineIndexes from './getMatchLineIndexes';
 
 function genEmptyCellNumbers() {
   return times(25, () => null) as Cells;
@@ -101,13 +101,13 @@ export function bingoReducer(
       });
 
       const player1matchLineIndexes = differenceWith(
-        getMatchLines(newState.player1.openIndexes),
+        getMatchLineIndexes(newState.player1.openIndexes),
         newState.player1.matchLines.map(matchLine => matchLine.indexes),
         isEqual
       );
 
       const player2matchLineIndexes = differenceWith(
-        getMatchLines(newState.player2.openIndexes),
+        getMatchLineIndexes(newState.player2.openIndexes),
         newState.player2.matchLines.map(matchLine => matchLine.indexes),
         isEqual
       );

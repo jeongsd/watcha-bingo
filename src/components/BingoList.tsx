@@ -29,23 +29,23 @@ const BingoList: React.FC<BingoListProps> = props => {
 
   const dispatch = useDispatch();
 
-  function handleClick(num: number) {
-    if (!currentPlayerId) {
-      return;
-    }
+  const handleClick = (index: number) => (num: number) => {
     if (currentPlayerId !== playerId) {
       alert('잘못된 차례입니다.');
       return;
     }
+    if (player.openIndexes.includes(index) || !currentPlayerId) {
+      return;
+    }
     dispatch(openCell(num));
-  }
+  };
 
   return (
     <List>
       {player.cellNumbers.map((value, index) => (
         <BingoCell
           isOpened={player.openIndexes.includes(index)}
-          onSelect={handleClick}
+          onSelect={handleClick(index)}
           key={index}
           value={value}
         />
