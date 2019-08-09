@@ -4,10 +4,6 @@ import BingoList from './BingoList';
 
 const Root = styled.div`
   padding: 32px;
-  /* display: grid;
-  grid-template-columns: repeat(5, 100px);
-  grid-template-rows: repeat(5, 100px);
-  grid-gap: 16px; */
 `;
 
 const PlayerId = styled.h3`

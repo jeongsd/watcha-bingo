@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import UserScreen from './UserScreen';
 import Button from './Button';
+import PlayButton from './PlayButton';
 
 const GlobalStyle = createGlobalStyle`
   body, html {
@@ -31,7 +32,7 @@ const App: React.FC = () => {
     <Root>
       <div>
         <ButtonWrapper>
-          <Button primary>게임 시작</Button>
+          <PlayButton />
         </ButtonWrapper>
 
         <GameScreen>
