@@ -36,8 +36,8 @@ const App: React.FC = () => {
         </ButtonWrapper>
 
         <GameScreen>
-          <UserScreen playerId={1} />
-          <UserScreen playerId={2} />
+          <UserScreen playerId="player1" />
+          <UserScreen playerId="player2" />
         </GameScreen>
         <GlobalStyle />
       </div>

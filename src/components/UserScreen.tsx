@@ -6,13 +6,13 @@ const Root = styled.div`
   padding: 32px;
 `;
 
-const PlayerId = styled.h3`
-  margin-bottom: 16px;
+const PlayerId = styled.h2`
+  margin-bottom: 24px;
   text-align: center;
 `;
 
 interface UserScreenProps {
-  playerId: number;
+  playerId: 'player1' | 'player2';
 }
 
 const UserScreen: React.FC<UserScreenProps> = props => {
@@ -20,9 +20,9 @@ const UserScreen: React.FC<UserScreenProps> = props => {
 
   return (
     <Root>
-      <PlayerId>플레이어 {playerId}</PlayerId>
+      <PlayerId>{playerId}</PlayerId>
 
-      <BingoList />
+      <BingoList playerId={playerId} />
     </Root>
   );
 };

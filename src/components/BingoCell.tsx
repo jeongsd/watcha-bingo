@@ -20,7 +20,7 @@ const CellButton = styled(Button)`
 // `;
 
 interface BingoCellProps {
-  value: number;
+  value: number | null;
   isOpened?: boolean;
 }
 
