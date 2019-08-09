@@ -1,6 +1,8 @@
 import update from 'immutability-helper';
 import times from 'lodash/times';
 import random from 'lodash/random';
+import differenceWith from 'lodash/differenceWith';
+import isEqual from 'lodash/isEqual';
 import {
   BingoState,
   GAME_START,
@@ -8,7 +10,7 @@ import {
   Cells,
   PlayerId
 } from './types';
-import isBingo from './isBingo';
+import getMatchLines from './getMatchLines';
 
 function genEmptyCellNumbers() {
   return times(25, () => null) as Cells;
@@ -31,11 +33,13 @@ const initialState: BingoState = {
   isPlaying: false,
   player1: {
     openIndexes: [],
-    cellNumbers: genEmptyCellNumbers()
+    cellNumbers: genEmptyCellNumbers(),
+    matchLines: []
   },
   player2: {
     openIndexes: [],
-    cellNumbers: genEmptyCellNumbers()
+    cellNumbers: genEmptyCellNumbers(),
+    matchLines: []
   },
   bingoPlayerIds: []
 };
@@ -87,11 +91,42 @@ export function bingoReducer(
         }
       });
 
+      const player1matchLineIndexes = differenceWith(
+        getMatchLines(newState.player1.openIndexes),
+        newState.player1.matchLines.map(matchLine => matchLine.indexes),
+        isEqual
+      );
+
+      const player2matchLineIndexes = differenceWith(
+        getMatchLines(newState.player2.openIndexes),
+        newState.player2.matchLines.map(matchLine => matchLine.indexes),
+        isEqual
+      );
+
+      newState = update<BingoState>(newState, {
+        player1: {
+          matchLines: {
+            $push: player1matchLineIndexes.map(indexes => ({
+              indexes: indexes,
+              date: new Date()
+            }))
+          }
+        },
+        player2: {
+          matchLines: {
+            $push: player2matchLineIndexes.map(indexes => ({
+              indexes: indexes,
+              date: new Date()
+            }))
+          }
+        }
+      });
+
       const newBingoPlayerIds: PlayerId[] = [];
-      if (isBingo(newState.player1.openIndexes)) {
+      if (newState.player1.matchLines.length >= 5) {
         newBingoPlayerIds.push('player1');
       }
-      if (isBingo(newState.player2.openIndexes)) {
+      if (newState.player2.matchLines.length >= 5) {
         newBingoPlayerIds.push('player2');
       }
 

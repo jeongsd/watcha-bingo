@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { restart } from '../store/bingo/actions';
 import { AppState } from '../store';
-import { playerStatus, PlayerId } from '../store/bingo/types';
+import { PlayerId } from '../store/bingo/types';
 
 function useWinnerBingoAlarm() {
   const bingoPlayerIds = useSelector<AppState, PlayerId[]>(
@@ -19,6 +19,7 @@ function useWinnerBingoAlarm() {
       } else {
         message = `${bingoPlayerIds[0]}가 빙고를 완성했습니다.`;
       }
+
       if (window.confirm(message)) {
         dispatch(restart());
       }

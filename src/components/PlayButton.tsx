@@ -15,7 +15,7 @@ const PlayButton: React.FC = () => {
   }
 
   return (
-    <Button primary onClick={handleClick}>
+    <Button primary={isPlaying} onClick={handleClick}>
       {isPlaying ? '게임 재시작' : '게임 시작'}
     </Button>
   );

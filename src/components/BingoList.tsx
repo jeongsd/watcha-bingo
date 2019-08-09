@@ -8,8 +8,8 @@ import BingoCell from './BingoCell';
 
 const List = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 100px);
-  grid-template-rows: repeat(5, 100px);
+  grid-template-columns: repeat(5, 90px);
+  grid-template-rows: repeat(5, 90px);
   grid-gap: 16px;
 `;
 

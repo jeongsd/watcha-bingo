@@ -28,10 +28,20 @@ export type Cells = [
   CellNumber
 ];
 
+export type MatchLineIndexes = [number, number, number, number, number];
+
+export type MatchLine = {
+  date: Date;
+  indexes: MatchLineIndexes;
+};
+
 export interface playerStatus {
   openIndexes: number[];
   cellNumbers: Cells;
+
+  matchLines: MatchLine[];
 }
+
 export type PlayerId = 'player1' | 'player2';
 
 export interface BingoState {

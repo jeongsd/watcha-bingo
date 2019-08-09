@@ -1,8 +1,9 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import UserScreen from './UserScreen';
-import Button from './Button';
 import PlayButton from './PlayButton';
+import MatchLines from './MatchLines';
+
 import useWinnerBingoAlarm from '../hooks/useWinnerBingoAlarm';
 
 const GlobalStyle = createGlobalStyle`
@@ -41,6 +42,7 @@ const App: React.FC = () => {
           <UserScreen playerId="player1" />
           <UserScreen playerId="player2" />
         </GameScreen>
+        <MatchLines />
         <GlobalStyle />
       </div>
     </Root>
