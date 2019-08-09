@@ -14,6 +14,10 @@ const TitleWrapper = styled.div`
   justify-content: center;
 `;
 
+const BingoListWrapper = styled.div<{ isCurrentPlayer: boolean }>`
+  opacity: ${props => (props.isCurrentPlayer ? 1 : 0.55)};
+`;
+
 const PlayerIdTypo = styled.h2<{ isCurrentPlayer: boolean }>`
   display: inline-block;
   color: ${props => (props.isCurrentPlayer ? 'white' : 'black')};
@@ -35,15 +39,18 @@ const UserScreen: React.FC<UserScreenProps> = props => {
     state => state.bingo.currentPlayerId
   );
 
+  const isCurrentPlayer = currentPlayerId === playerId;
   return (
     <Root>
       <TitleWrapper>
-        <PlayerIdTypo isCurrentPlayer={currentPlayerId === playerId}>
+        <PlayerIdTypo isCurrentPlayer={isCurrentPlayer}>
           {playerId}
         </PlayerIdTypo>
       </TitleWrapper>
 
-      <BingoList playerId={playerId} />
+      <BingoListWrapper isCurrentPlayer={isCurrentPlayer}>
+        <BingoList isCurrentPlayer={isCurrentPlayer} playerId={playerId} />
+      </BingoListWrapper>
     </Root>
   );
 };

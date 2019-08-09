@@ -10,6 +10,17 @@ function genRandomCellNumbers() {
   return times(25, () => random(1, 25)) as Cells;
 }
 
+function findAllIndexes(cells: Cells, num: number): number[] {
+  const indexes: number[] = [];
+
+  cells.forEach((cell, index) => {
+    if (cell === num) {
+      indexes.push(index);
+    }
+  });
+  return indexes;
+}
+
 const initialState: BingoState = {
   isPlaying: false,
   player1: {
@@ -26,6 +37,7 @@ export function bingoReducer(
   state = initialState,
   action: BingoActionTypes
 ): BingoState {
+  const currentPlayerId = state.currentPlayerId;
   switch (action.type) {
     case GAME_START:
       return update<BingoState>(state, {
@@ -45,6 +57,25 @@ export function bingoReducer(
           },
           cellNumbers: {
             $set: genRandomCellNumbers()
+          }
+        }
+      });
+    case 'OPEN_CELL':
+      if (!currentPlayerId) return state;
+      const selectNumber = action.payload.selectNumber;
+
+      return update<BingoState>(state, {
+        currentPlayerId: {
+          $set: currentPlayerId === 'player1' ? 'player2' : 'player1'
+        },
+        player1: {
+          openIndexes: {
+            $push: findAllIndexes(state.player1.cellNumbers, selectNumber)
+          }
+        },
+        player2: {
+          openIndexes: {
+            $push: findAllIndexes(state.player2.cellNumbers, selectNumber)
           }
         }
       });

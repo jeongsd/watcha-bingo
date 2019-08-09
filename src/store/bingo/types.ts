@@ -30,7 +30,7 @@ export type Cells = [
 
 export interface playerStatus {
   openIndexes: number[];
-  cellNumbers: CellNumber[];
+  cellNumbers: Cells;
 }
 export type PlayerId = 'player1' | 'player2';
 
@@ -42,9 +42,17 @@ export interface BingoState {
 }
 
 export const GAME_START = 'GAME_START';
+export const OPEN_CELL = 'OPEN_CELL';
 
-interface GameStartAction {
+export interface GameStartAction {
   type: typeof GAME_START;
 }
 
-export type BingoActionTypes = GameStartAction;
+export interface OpenCellAction {
+  type: typeof OPEN_CELL;
+  payload: {
+    selectNumber: number;
+  };
+}
+
+export type BingoActionTypes = GameStartAction | OpenCellAction;

@@ -9,24 +9,30 @@ const CellButton = styled(Button)`
   margin: 0px;
   padding: 0px;
 `;
-// Button.
-// const Button = styled.button`
-//   background: transparent;
-//   border-radius: 3px;
-//   border: 2px solid palevioletred;
-//   color: palevioletred;
-//   font-size: 40px;
-//   cursor: pointer;
-// `;
 
 interface BingoCellProps {
   value: number | null;
   isOpened?: boolean;
+  disabled?: boolean;
+  onSelect?(num: number): void;
 }
 
 const BingoCell: React.FC<BingoCellProps> = props => {
-  const { value, isOpened = false } = props;
-  return <CellButton primary={isOpened}>{value}</CellButton>;
+  const { onSelect, value, isOpened = false, disabled = false } = props;
+  function handleClick() {
+    if (disabled) {
+      alert('잘못된 차례입니다.');
+      return;
+    }
+    if (value && onSelect) {
+      onSelect(value);
+    }
+  }
+  return (
+    <CellButton onClick={handleClick} primary={isOpened}>
+      {value}
+    </CellButton>
+  );
 };
 
 export default BingoCell;
