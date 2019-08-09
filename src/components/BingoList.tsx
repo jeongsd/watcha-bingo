@@ -14,20 +14,29 @@ const List = styled.div`
 `;
 
 interface BingoListProps {
-  playerId: 'player1' | 'player2';
-  isCurrentPlayer: boolean;
+  playerId: PlayerId;
 }
 
 const BingoList: React.FC<BingoListProps> = props => {
-  const { playerId, isCurrentPlayer } = props;
+  const { playerId } = props;
 
   const player = useSelector<AppState, playerStatus>(
     state => state.bingo[playerId]
+  );
+  const currentPlayerId = useSelector<AppState, PlayerId | undefined>(
+    state => state.bingo.currentPlayerId
   );
 
   const dispatch = useDispatch();
 
   function handleClick(num: number) {
+    if (!currentPlayerId) {
+      return;
+    }
+    if (currentPlayerId !== playerId) {
+      alert('잘못된 차례입니다.');
+      return;
+    }
     dispatch(openCell(num));
   }
 
@@ -35,7 +44,6 @@ const BingoList: React.FC<BingoListProps> = props => {
     <List>
       {player.cellNumbers.map((value, index) => (
         <BingoCell
-          disabled={!isCurrentPlayer}
           isOpened={player.openIndexes.includes(index)}
           onSelect={handleClick}
           key={index}

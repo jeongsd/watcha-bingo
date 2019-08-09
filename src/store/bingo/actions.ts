@@ -1,9 +1,17 @@
 import {
   GAME_START,
   OPEN_CELL,
+  RESTART,
   GameStartAction,
-  OpenCellAction
+  OpenCellAction,
+  RestartAction
 } from './types';
+
+export function restart(): RestartAction {
+  return {
+    type: RESTART
+  };
+}
 
 export function gameStart(): GameStartAction {
   return {

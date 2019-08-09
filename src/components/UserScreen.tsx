@@ -49,7 +49,7 @@ const UserScreen: React.FC<UserScreenProps> = props => {
       </TitleWrapper>
 
       <BingoListWrapper isCurrentPlayer={isCurrentPlayer}>
-        <BingoList isCurrentPlayer={isCurrentPlayer} playerId={playerId} />
+        <BingoList playerId={playerId} />
       </BingoListWrapper>
     </Root>
   );

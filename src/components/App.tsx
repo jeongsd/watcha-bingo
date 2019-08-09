@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import UserScreen from './UserScreen';
 import Button from './Button';
 import PlayButton from './PlayButton';
+import useWinnerBingoAlarm from '../hooks/useWinnerBingoAlarm';
 
 const GlobalStyle = createGlobalStyle`
   body, html {
@@ -28,6 +29,7 @@ const GameScreen = styled.div`
 `;
 
 const App: React.FC = () => {
+  useWinnerBingoAlarm();
   return (
     <Root>
       <div>

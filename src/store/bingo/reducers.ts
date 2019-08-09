@@ -1,7 +1,14 @@
 import update from 'immutability-helper';
 import times from 'lodash/times';
 import random from 'lodash/random';
-import { BingoState, GAME_START, BingoActionTypes, Cells } from './types';
+import {
+  BingoState,
+  GAME_START,
+  BingoActionTypes,
+  Cells,
+  PlayerId
+} from './types';
+import isBingo from './isBingo';
 
 function genEmptyCellNumbers() {
   return times(25, () => null) as Cells;
@@ -9,7 +16,6 @@ function genEmptyCellNumbers() {
 function genRandomCellNumbers() {
   return times(25, () => random(1, 25)) as Cells;
 }
-
 function findAllIndexes(cells: Cells, num: number): number[] {
   const indexes: number[] = [];
 
@@ -30,7 +36,8 @@ const initialState: BingoState = {
   player2: {
     openIndexes: [],
     cellNumbers: genEmptyCellNumbers()
-  }
+  },
+  bingoPlayerIds: []
 };
 
 export function bingoReducer(
@@ -64,7 +71,7 @@ export function bingoReducer(
       if (!currentPlayerId) return state;
       const selectNumber = action.payload.selectNumber;
 
-      return update<BingoState>(state, {
+      let newState: BingoState = update<BingoState>(state, {
         currentPlayerId: {
           $set: currentPlayerId === 'player1' ? 'player2' : 'player1'
         },
@@ -79,6 +86,25 @@ export function bingoReducer(
           }
         }
       });
+
+      const newBingoPlayerIds: PlayerId[] = [];
+      if (isBingo(newState.player1.openIndexes)) {
+        newBingoPlayerIds.push('player1');
+      }
+      if (isBingo(newState.player2.openIndexes)) {
+        newBingoPlayerIds.push('player2');
+      }
+
+      if (newBingoPlayerIds.length) {
+        newState = update<BingoState>(newState, {
+          bingoPlayerIds: {
+            $set: newBingoPlayerIds
+          }
+        });
+      }
+      return newState;
+    case 'RESTART':
+      return initialState;
     default:
       return state;
   }
