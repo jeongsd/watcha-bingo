@@ -19,7 +19,6 @@ function useWinnerBingoAlarm() {
       } else {
         message = `${bingoPlayerIds[0]}가 빙고를 완성했습니다.`;
       }
-
       if (window.confirm(message)) {
         dispatch(restart());
       }

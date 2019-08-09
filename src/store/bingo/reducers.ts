@@ -54,12 +54,18 @@ export function bingoReducer(
       return update<BingoState>(state, {
         isPlaying: { $set: true },
         currentPlayerId: { $set: 'player1' },
+        bingoPlayerIds: {
+          $set: []
+        },
         player1: {
           openIndexes: {
             $set: []
           },
           cellNumbers: {
             $set: genRandomCellNumbers()
+          },
+          matchLines: {
+            $set: []
           }
         },
         player2: {
@@ -68,6 +74,9 @@ export function bingoReducer(
           },
           cellNumbers: {
             $set: genRandomCellNumbers()
+          },
+          matchLines: {
+            $set: []
           }
         }
       });
