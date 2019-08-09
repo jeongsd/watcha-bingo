@@ -25,7 +25,7 @@ const MatchLines: React.FC = props => {
         .map((matchLine, index) => (
           <p key={index}>
             [{matchLine.date.toLocaleString('ko-KR')}]{' '}
-            <b>{matchLine.playerId}</b>가 {JSON.stringify(matchLine.indexes)}를
+            <b>{matchLine.playerId}</b>가 [{matchLine.indexes.join(', ')}]를
             완성했습니다.
           </p>
         ))}

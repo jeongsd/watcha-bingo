@@ -40,23 +40,27 @@ function getMatchLineIndexes(selectIndexes: number[]): MatchLineIndexes[] {
         indexes,
         j => selectIndex + j * 5
       );
-      if (isMatch) matchLines.push(calcIndexes as MatchLineIndexes);
+      if (isMatch)
+        matchLines.push([selectIndex, ...calcIndexes] as MatchLineIndexes);
     }
     // 가로
     if (selectIndex % 5 === 0) {
       const { isMatch, calcIndexes } = matchCalc(indexes, j => selectIndex + j);
-      if (isMatch) matchLines.push(calcIndexes as MatchLineIndexes);
+      if (isMatch)
+        matchLines.push([selectIndex, ...calcIndexes] as MatchLineIndexes);
     }
 
     // 대각선
     if (selectIndex === 0) {
       const { isMatch, calcIndexes } = matchCalc(indexes, j => j * 6);
-      if (isMatch) matchLines.push(calcIndexes as MatchLineIndexes);
+      if (isMatch)
+        matchLines.push([selectIndex, ...calcIndexes] as MatchLineIndexes);
     }
     // 대각선
     if (selectIndex === 4) {
       const { isMatch, calcIndexes } = matchCalc(indexes, j => 4 + j * 4);
-      if (isMatch) matchLines.push(calcIndexes as MatchLineIndexes);
+      if (isMatch)
+        matchLines.push([selectIndex, ...calcIndexes] as MatchLineIndexes);
     }
   }
 
